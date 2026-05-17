@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Intel | Welcome</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { 
+            --primary: #4f46e5; 
+            --secondary: #0ea5e9;
+            --bg: #0f172a; 
+            --glass: rgba(255, 255, 255, 0.03); 
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            background-attachment: fixed;
+            color: white; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh;
+        }
+
+        /* --- 1. NAVIGATION BAR --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: fixed;
+            width: calc(100% - 100px);
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #818cf8, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #f8fafc;
+        }
+
+        /* --- 2. HERO SECTION --- */
+        .hero { 
+            text-align: center; 
+            padding: 180px 20px 80px 20px;
+            flex: 1;
+        }
+        
+        .hero h1 { 
+            font-size: 3.5rem; 
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #818cf8, #38bdf8); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+
+        .hero p {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+        }
+        
+        .auth-btn { 
+            padding: 12px 35px; 
+            border-radius: 10px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: 0.3s; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            cursor: pointer; 
+            display: inline-block; 
+        }
+
+        .login-btn { 
+            background: var(--primary); 
+            color: white; 
+            box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 rgba(79, 70, 229, 0.4);
+        }
+        
+        /* --- 3. FEATURES SECTION --- */
+        .features-container {
+            max-width: 1000px;
+            margin: 0 auto 100px auto;
+            padding: 0 20px;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .features-header h2 {
+            font-size: 2rem;
+            color: #f8fafc;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-card i {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: #f8fafc;
+        }
+
+        .feature-card p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* --- 4. MODAL STYLE --- */
+        .modal { 
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.8); 
+            backdrop-filter: blur(8px); 
+        }
+        
+        .modal-content { 
+            background: #1e1b4b; 
+            margin: 15% auto; 
+            padding: 30px; 
+            width: 320px; 
+            border-radius: 20px; 
+            text-align: center; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        
+        input { 
+            width: 90%; 
+            padding: 12px; 
+            margin: 10px 0; 
+            background: var(--glass); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            color: white; 
+            border-radius: 8px; 
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--secondary);
+        }
+        
+        .error { color: #f87171; font-size: 0.8rem; display: none; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-traffic-light"></i> TrafficIntel
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#" onclick="openModal()">Dashboard</a>
+            <a href="#" onclick="openModal()">About</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>Advanced Traffic Intelligence</h1>
+        <p>Leveraging deep learning and computer vision to deliver real-time vehicle classification, density analysis, and smart city insights.</p>
+        <button onclick="openModal()" class="auth-btn login-btn">Login to System</button>
+    </div>
+
+    <div class="features-container">
+        <div class="features-header">
+            <h2>Core System Capabilities</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-car fa-3x"></i>
+                <h3>Vehicle Counting</h3>
+                <p>Automated, real-time counting of multiple distinct vehicle classes utilizing advanced YOLOv8m architectures.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-pie fa-3x"></i>
+                <h3>Traffic Density</h3>
+                <p>Dynamic categorization of road states as High or Low density to optimize future infrastructure routing.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2>Sign In</h2>
+            <input type="email" id="email" placeholder="admin@mbu.edu">
+            <input type="password" id="password" placeholder="Password">
+            <div id="errorMsg" class="error">Invalid credentials!</div>
+            <button onclick="checkLogin()" class="auth-btn login-btn" style="width:100%; margin:0;">Login</button>
+            <button onclick="closeModal()" style="background:none; border:none; color:#94a3b8; margin-top:15px; cursor:pointer;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal() { document.getElementById('loginModal').style.display = 'block'; }
+        function closeModal() { document.getElementById('loginModal').style.display = 'none'; }
+        
+        function checkLogin() {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            if(email === "admin@mbu.edu" && pass === "12345") {
+                localStorage.setItem("traffic_auth", "true");
+                window.location.href = "index.html";
+            } else {
+                document.getElementById('errorMsg').style.display = "block";
+            }
+        }
+
+        // Close modal if clicked outside
+        window.onclick = function(event) {
+            let modal = document.getElementById('loginModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
